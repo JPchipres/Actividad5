@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 5</title>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="switch-container">
+        <input class="switch-input" type="checkbox" id="Breaker1">
+        <div class="switch-button">
+            <div class="switch-button-inside">
+                <svg class="switch-icon off" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8 12C10.2091 12 12 10.2091 12 8C12 5.79086 10.2091 4 8 4C5.79086 4 4 5.79086 4 8C4 10.2091 5.79086 12 8 12ZM8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z"/>
+                </svg>
+                <svg class="switch-icon on" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="7" width="12" height="2" rx="1"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <output for="rango" id="state1"></output>
+</body>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/particle-api-js@10/dist/particle.min.js"></script>
+<script type="module" src="script.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.9.0/d3.min.js"></script>
+<script>
+    var particle = new Particle();
+    var token;
+    particle.login({username: 'ccruz4@ucol.mx', password: 'Lilo2024'}).then(
+      function(data) {
+        token = data.body.access_token;
+      },
+      function (err) {
+        console.log('Could not log in.', err);
+      }
+    );
+
+    setInterval(function() {
+        var breaker1 = document.getElementById('Breaker1');
+        breaker1.onchange = function() {
+            var output = document.getElementById('state1');
+            output.innerHTML = this.checked ? 1 : 0;
+            var Salida1 = this.checked ? "1" : "0";
+            particle.callFunction({ deviceId: '1c002a000847313037363132', name: 'led', argument: Salida1, auth: token });
+        }
+    }, 1000);
+</script>
+</html>
+
+
+
+
+
+
+
+
